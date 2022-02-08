@@ -5,11 +5,23 @@
   <form class="new-post-form">
     <div>
       <label for="post-title">title</label>
-      <input class="input" type="text" id="post-title" name="post-title" placeholder=" blog title "/>
+      <textarea class="textarea"  id="post-title" name="post-title" placeholder=" blog title " rows="2"></textarea>
     </div>
+
     <div>
       <label for="post-content">content:</label>
-      <input class="textarea is-large" id="post-content" name="post-content" placeholder="blog content "/>
+      <textarea class="textarea" id="post-content" name="post-content" placeholder="blog content" ></textarea>
+
+    </div>
+     <div>
+      <label for="image-content">Image link :</label>
+      <textarea class="textarea is-large" id="image-content" name="image-content" placeholder="paste the Image link over here" rows="2"></textarea>
+
+    </div>
+     <div>
+      <label for="video-content">content:</label>
+      <textarea class="textarea is-large" id="video-content" name="video-content" placeholder="paste the youtuve link over here" rows="2"></textarea>
+
     </div>
     <button type="submit" class="button is-primary is-pulled-right">create post</button>
   </form>

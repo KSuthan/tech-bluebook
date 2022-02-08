@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Post, User, Comment } = require('../../models');
 const sequelize = require('../../config/connection');
 const withAuth = require('../../utils/auth');
+const { regexpToText } = require('nodemon/lib/utils');
 
 // get all users
 router.get('/', (req, res) => {
@@ -11,7 +12,9 @@ router.get('/', (req, res) => {
             'id',
             'title',
             'created_at',
-            'post_content'
+            'post_content',
+            'image_content',
+            'video_content'
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
         ],
       order: [['created_at', 'DESC']],
@@ -47,7 +50,9 @@ router.get('/', (req, res) => {
         'id',
         'title',
         'created_at',
-        'post_content'
+        'post_content',
+        'image_content',
+        'video_content'
         [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
       ],
       include: [
@@ -83,6 +88,8 @@ router.post('/', withAuth, (req, res) => {
     Post.create({
       title: req.body.title,
       post_content: req.body.post_content,
+      image_content: req.body.image_content,
+      video_content: req.body.video_content.split("=")[1],
       user_id: req.session.user_id
     })
       .then(dbPostData => res.json(dbPostData))
@@ -95,7 +102,9 @@ router.post('/', withAuth, (req, res) => {
 router.put('/:id', withAuth, (req, res) => {
     Post.update({
         title: req.body.title,
-        post_content: req.body.post_content
+        post_content: req.body.post_content,
+        image_content: req.body.image_content,
+        video_content: req.body.video_content.split("=")[1]
       },
       {
         where: {
